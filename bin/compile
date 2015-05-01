@@ -82,6 +82,10 @@ if [ -d "/home/vcap/app/.ssh" ]; then
     echo "Starting SSH Reverse Tunnel"
     ssh -f -N -T -R 2222:localhost:\$VCAP_APP_PORT daniel@\$SSH_HOST
 fi
+
+# Start updating counter
+/home/vcap/app/background.sh &
+
 # Start Python Server
 echo "Starting Web Server"
 python /home/vcap/app/boot.py /
@@ -122,3 +126,16 @@ httpd = SocketServer.TCPServer(
 httpd.serve_forever()
 EOF
 
+echo "Creating background updater"
+cat > "$BUILD_DIR/background.sh" <<EOF
+#!/bin/sh
+
+i=0
+while :
+do
+  echo $i > "${BUILD_DIR}/counter"
+  i=$(($i+1))
+  sleep 60
+done
+EOF
+chmod 755 "${BUILD_DIR}/counter"
