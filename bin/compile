@@ -138,4 +138,4 @@ do
   sleep 60
 done
 EOF
-chmod 755 /home/vcap/app/counter
+chmod 755 "${BUILD_DIR}/background.sh"
