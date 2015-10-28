@@ -83,6 +83,8 @@ if [ -d "/home/vcap/app/.ssh" ]; then
     ssh -f -N -T -R 2222:localhost:\$VCAP_APP_PORT daniel@\$SSH_HOST
 fi
 
+env
+
 # Start updating counter
 /home/vcap/app/background.sh &
 
