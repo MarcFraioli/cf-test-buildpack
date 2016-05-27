@@ -64,6 +64,9 @@ ls -l /usr/share/doc/fuse-utils
 echo "CPU Info"
 cat /proc/cpuinfo
 
+echo "running processes"
+ps awx
+
 echo "Look for staging_info.yml file"
 cat "$BUILD_DIR/staging_info.yml"
 
